@@ -21,54 +21,74 @@ public class C5TreeBuilder
 	dataset = new ArrayList();
 	
 	populateDataset();
-	build();
-    }
-    
-    // this method only for development use
-    public void populateDataset()
-    {
-	ArrayList e = new ArrayList();
-	e.add(true);
-	e.add(true);
-	e.add("Baik");
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(true);
-	e.add(false);
-	e.add("Jahat");
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(false);
-	e.add(false);
-	e.add("Jahat");
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(false);
-	e.add(true);
-	e.add("Baik");
-	dataset.add((ArrayList)e.clone());
-	e.clear();
+	initiateBuild();
     }
     
     public void initiateBuild()
     {
 	if ( root == null ) {
-	    build();
+	    build(this.dataset);
 	}
     }
     
-    private Node build()
+    public Node search()
     {
+	return null;
+    }
+    
+    
+    // this method only for development use
+    private void populateDataset()
+    {
+	ArrayList e = new ArrayList();
+	e.add(true);
+	e.add(true);
+	e.add(0);
+	dataset.add((ArrayList)e.clone());
+	e.clear();
+	
+	e.add(true);
+	e.add(false);
+	e.add(1);
+	dataset.add((ArrayList)e.clone());
+	e.clear();
+	
+	e.add(false);
+	e.add(false);
+	e.add(1);
+	dataset.add((ArrayList)e.clone());
+	e.clear();
+	
+	e.add(false);
+	e.add(true);
+	e.add(0);
+	dataset.add((ArrayList)e.clone());
+	e.clear();
+    }
+    
+    private Node build(ArrayList<ArrayList> dataset)
+    {
+	int params[] = new int[2];
+	
+	for (int i = 0; i < dataset.size(); i++)
+	{
+	    params[(int)dataset.get(i).get(2)]++;
+	}
+	double totalEntropy = calculateEntropy(params, dataset.size());
+	
+	
+	
+	
+	
+	
 	return null;
     }
     
     /*
     * used for calculate entropy separately
+    * params[] amount of each class in dataset
     */
-    private double calculateEntropy(double[] params, double totalCase)
+    private double calculateEntropy(int[] params, double totalCase)
     {
 	double sum = 0;
 	for (int i = 0; i < params.length; i++)
@@ -82,6 +102,8 @@ public class C5TreeBuilder
     /*
     * used to combine entropy among classes
     */
-    private double calculateEntropy(double[] params, double[] entropy, double totalCase){
-    return 0;}
+    private double calculateEntropy(double[] params, double[] entropy, double totalCase)
+    {
+	return 0;
+    }
 }
