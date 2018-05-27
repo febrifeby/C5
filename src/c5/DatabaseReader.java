@@ -9,9 +9,7 @@ package c5;
  *
  * @author dyahayu
  */
-public class Main {
-    public static void main(String[] args)
-    {
-	C5TreeBuilder builder = new C5TreeBuilder();
-    }
+public class DatabaseReader
+{
+    
 }
