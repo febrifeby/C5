@@ -19,6 +19,8 @@ public class Node {
     private Node left;
     private Node right;
 
+    public Node(){}
+    
     public Node(int typeOfNode, String label, Node left, Node right)
     {
 	this.typeOfNode = typeOfNode;
@@ -47,5 +49,16 @@ public class Node {
 	return right;
     }
 
+    public void setLeft(Node left)
+    {
+	this.left = left;
+    }
+
+    public void setRight(Node right)
+    {
+	this.right = right;
+    }
+
+    
           
 }
