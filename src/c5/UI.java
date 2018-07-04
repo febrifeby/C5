@@ -5,8 +5,9 @@
  */
 package c5;
 
+import javax.swing.JFrame;
 import org.apache.poi.ss.usermodel.Sheet;
-
+import javax.swing.table.TableColumn;
 /**
  *
  * @author feby
@@ -18,7 +19,199 @@ public class UI extends javax.swing.JFrame {
      */
     public UI() {
         initComponents();
+        lebarKolom();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
+    
+    public void lebarKolom(){ 
+        TableColumn column;
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
+        column = jTable1.getColumnModel().getColumn(0); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(1); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(2); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(3); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(4); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(5); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(6); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(7); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(8); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(9); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(10); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(11); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(12); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(13); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(14); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(15); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(16); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(17); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(18); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(19); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(20); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(21); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(22); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(23); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(24); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(25); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(26); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(27); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(28); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(29); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(30); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(31); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(32); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(33); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(34); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(35); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(36); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(37); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(38); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(39); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(40); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(41); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(42); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(43); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(44); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(45); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(46); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(47); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(48); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(49); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(50); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(51); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(52); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(53); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(54); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(55); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(56); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(57); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(58); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(59); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(60); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(61); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(62); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(63); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(64); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(65); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(66); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(67); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(68); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(69); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(70); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(71); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(72); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(73); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(74); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(75); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(76); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(77); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(78); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(79); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(80); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(81); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(82); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(83); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(84); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(85); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(86); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(87); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(88); 
+        column.setPreferredWidth(50);
+        column = jTable1.getColumnModel().getColumn(89); 
+        column.setPreferredWidth(50); 
+        column = jTable1.getColumnModel().getColumn(90); 
+        column.setPreferredWidth(130);
+
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,8 +383,8 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Komputasi", jLayeredPane1);
@@ -288,12 +481,16 @@ public class UI extends javax.swing.JFrame {
         jLayeredPane2Layout.setHorizontalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 18, Short.MAX_VALUE))
+                        .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -303,10 +500,6 @@ public class UI extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -316,17 +509,15 @@ public class UI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jLayeredPane2Layout.createSequentialGroup()
                         .addGroup(jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))))
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         jTabbedPane1.addTab("Pengujian", jLayeredPane2);
@@ -348,7 +539,7 @@ public class UI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -383,7 +574,9 @@ public class UI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
-            .addComponent(jScrollPane4)
+            .addGroup(jLayeredPane3Layout.createSequentialGroup()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Diagnosa", jLayeredPane3);
