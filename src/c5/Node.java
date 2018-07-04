@@ -7,7 +7,7 @@ package c5;
 
 /**
  *
- * @author dyahayu
+ * 
  */
 public class Node {
     

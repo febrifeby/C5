@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author dyahayu
+ * 
  */
 public class C5TreeBuilder 
 {

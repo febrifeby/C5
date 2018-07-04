@@ -7,7 +7,7 @@ package c5;
 
 /**
  *
- * @author dyahayu
+ * 
  */
 public class Main {
     public static void main(String[] args)
