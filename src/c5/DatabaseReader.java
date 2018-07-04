@@ -5,60 +5,61 @@
  */
 package c5;
 
-import java.io.File;
-import java.io.IOException;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import jxl.Cell;
-import jxl.CellType;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-/**
- *
- * @author dyahayu
- */
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class DatabaseReader
 {
-    private String inputFile;
-
-    public void setInputFile(String inputFile) {
-        this.inputFile = inputFile;
+    private static final String FILE_NAME = "C:\\Users\\Nously\\Documents\\NetBeansProjects\\C5\\src\\c5\\DATASET.xlsx";
+    private static LinkedList<LinkedList<Object>> temp = new LinkedList<LinkedList<Object>>();
+    
+    public static Object[] getTableHeader() {
+        return temp.getFirst().toArray();
     }
-
-    public void read() throws IOException  {
-        File inputWorkbook = new File(inputFile);
-        Workbook w;
+    
+    public static Object[][] getTable() {        
+        Object[][] table = null;
         try {
-            w = Workbook.getWorkbook(inputWorkbook);
-            // Get the first sheet
-            Sheet sheet = w.getSheet(0);
-            // Loop over first 10 column and lines
+            FileInputStream excelFile = new FileInputStream(
+                    new File(FILE_NAME));
+            Workbook workbook = new XSSFWorkbook(excelFile);
+            Sheet sheet = workbook.getSheetAt(1);
+            Iterator<Row> iterator = sheet.iterator();
+            
+            while (iterator.hasNext()) {                
+                Row currentRow = iterator.next();
+                Iterator<Cell> cellIterator = currentRow.iterator();
 
-            for (int j = 0; j < sheet.getColumns(); j++) {
-                for (int i = 0; i < sheet.getRows(); i++) {
-                    Cell cell = sheet.getCell(j, i);
-                    CellType type = cell.getType();
-                    if (type == CellType.LABEL) {
-                        System.out.println("I got a label "
-                                + cell.getContents());
+                temp.add(new LinkedList<Object>());
+                
+                while (cellIterator.hasNext()) {
+                    Cell currentCell = cellIterator.next();
+                    
+                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
+                        temp.getLast().add(currentCell.getStringCellValue());
+                    } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+                        temp.getLast().add(currentCell.getNumericCellValue());
                     }
-
-                    if (type == CellType.NUMBER) {
-                        System.out.println("I got a number "
-                                + cell.getContents());
-                    }
-
                 }
             }
-        } catch (BiffException e) {
+            
+            table = new Object[temp.size()-1][temp.getFirst().size()];
+            for (int i = 0; i < table.length; i++)
+                for (int j = 0; j < table[0].length; j++)
+                    table[i] = temp.get(i+1).toArray();
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return table;
     }
-
-    public static void main(String[] args) throws IOException {
-        DatabaseReader test = new DatabaseReader();
-        test.setInputFile("/home/dyahayu/NetBeansProjects/C5/dataset.xlsx");
-        test.read();
-    }
-
 }

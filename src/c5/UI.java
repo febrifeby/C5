@@ -5,6 +5,8 @@
  */
 package c5;
 
+import org.apache.poi.ss.usermodel.Sheet;
+
 /**
  *
  * @author feby
@@ -101,17 +103,7 @@ public class UI extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(test(),test2()));
         jScrollPane1.setViewportView(jTable1);
 
         jTabbedPane2.addTab("Data Training", jScrollPane1);
@@ -401,7 +393,7 @@ public class UI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,6 +436,13 @@ public class UI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public Object[][] test (){
+        return DatabaseReader.getTable();
+    }
+    
+    public Object[] test2 (){
+        return DatabaseReader.getTableHeader();
+    }
     /**
      * @param args the command line arguments
      */
