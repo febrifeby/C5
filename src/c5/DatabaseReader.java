@@ -49,10 +49,10 @@ public class DatabaseReader
                     }
                 }
             }
-            
+            temp.removeLast();temp.removeLast();temp.removeLast();
             table = new Object[temp.size()-1][temp.getFirst().size()];
-            for (int i = 0; i < table.length; i++)
-                for (int j = 0; j < table[0].length; j++)
+            for (int i = 0; i < temp.size()-1; i++)
+                for (int j = 0; j < temp.getFirst().size(); j++)
                     table[i] = temp.get(i+1).toArray();
             
         } catch (FileNotFoundException e) {

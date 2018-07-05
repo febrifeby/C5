@@ -14,14 +14,27 @@ public class Node {
     public static final int TYPE_LEAF = 1;
     public static final int TYPE_CLASSIFIER = 0;
     
+    // these value are just some random number
+    // classifier label is integer 1 - 88
+    // leaf label is:
+    public static final int LABEL_LEAF_PARANOID = 110;
+    public static final int LABEL_LEAF_HEBREFENIK = 120;
+    public static final int LABEL_LEAF_KATATONIK = 130;
+    public static final int LABEL_LEAF_UNDIFFERENTIATED = 140;
+    public static final int LABEL_LEAF_SIMPLEKS = 150;
+    
     private int typeOfNode;
-    private String label;
+    private int label;
     private Node left;
     private Node right;
 
     public Node(){}
     
-    public Node(int typeOfNode, String label, Node left, Node right)
+    public Node(int typeOfNode, int label){
+        this(typeOfNode, label, null, null);
+    }
+    
+    public Node(int typeOfNode, int label, Node left, Node right)
     {
 	this.typeOfNode = typeOfNode;
 	this.label = label;
@@ -34,7 +47,7 @@ public class Node {
 	return typeOfNode;
     }
 
-    public String getLabel()
+    public int getLabel()
     {
 	return label;
     }
