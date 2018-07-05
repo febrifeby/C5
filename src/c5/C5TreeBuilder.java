@@ -25,27 +25,41 @@ public class C5TreeBuilder
 
     private static Node build(Object[][] table, Node parent){
         int tableWidth = table[0].length;
-        
-        // if data dalam table memiliki kelas yang sama, maka return node leaf
+        // if data dalam table memiliki kelas yang sama, maka return node leaf        
         Double classOfFirstData = new Double(0);
         for (int i = 0; i < table.length; i++)
         {
             if (i == 0)
                 classOfFirstData = new Double((Double)table[i][tableWidth - 2]-1);
             
-            if (!classOfFirstData.equals((Double)table[i][tableWidth - 2]))
+            if (table.length > 1 && !classOfFirstData.equals((Double)table[i][tableWidth - 2]))
                 break;
-            
-            return new Node(Node.TYPE_LEAF, classOfFirstData.intValue());
+            else if (i == table.length - 1)
+                parent = new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
         }
         
         // calculate entropy total
-        
-        int params[] = new int[5]; // yes or no
+        int params[] = new int[5];        
 	for (int i = 1; i < table.length; i++)
 	{
 	    params[((Double)table[i][tableWidth - 2]).intValue() - 1]++;
 	}
+        int defaultClass = -1;
+        int maxClass = -1;
+        for (int i = 0; i < params.length; i++)
+            if (maxClass < params[i])
+            {
+                defaultClass = i;
+                maxClass = params[i];
+            }
+        
+        if (table.length == 0 || table == null)
+        {
+            parent = new Node(Node.TYPE_LEAF, defaultClass + 100);
+            return parent;
+        }
+
+        
 	double totalEntropy = calculateEntropy(params, table.length);
         
         // calculate entropy per G
@@ -85,11 +99,17 @@ public class C5TreeBuilder
         for (int i = 0; i < gainRatioPerG.length; i++)
         {
             gainRatioPerG[i] = calculateGainRatio(totalEntropy, entropyPerGGabungan[i]);
-            if (highestGainRatio < gainRatioPerG[i]){
+            if (highestGainRatio <= gainRatioPerG[i]){
                 highestGainRatio = gainRatioPerG[i];
                 choosenG = i;
             }
         }
+        
+        if (parent.blackListLabel.contains((Integer)choosenG))
+            return null;
+        parent.blackListLabel.add(choosenG);
+        parent.setLabel(choosenG);
+        System.out.println(parent.getLabel());
         
         // build new table        
         LinkedList<Object[]> listYes = new LinkedList<>();
@@ -114,14 +134,17 @@ public class C5TreeBuilder
         for (int i = 0; i < listNo.size(); i++)
             tableNo[i] = listNo.get(i);
         
-        System.out.println(choosenG);
-        
 	// let the recursive plays its role!!!
-        Node newParent = new Node(Node.TYPE_CLASSIFIER, choosenG);
-	parent.setLeft(build(tableYes, newParent));
-	parent.setRight(build(tableNo, newParent));
-//	
-//      return Node with highest Gain
+        Node newParent = new Node(Node.TYPE_CLASSIFIER, -1);
+        if (parent.blackListLabel != null)
+            for (Integer i : parent.blackListLabel)
+                newParent.blackListLabel.add(i);
+        
+        System.out.println("kiri");
+	if (tableYes != null) parent.setLeft(build(tableYes, newParent));
+        System.out.println("kanan");
+	if (tableNo != null) parent.setRight(build(tableNo, newParent));
+
         return parent;
     }
     

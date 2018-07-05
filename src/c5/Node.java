@@ -5,6 +5,8 @@
  */
 package c5;
 
+import java.util.LinkedList;
+
 /**
  *
  * 
@@ -27,7 +29,9 @@ public class Node {
     private int label;
     private Node left;
     private Node right;
-
+    
+    public LinkedList<Integer> blackListLabel = new LinkedList<Integer>();
+    
     public Node(){}
     
     public Node(int typeOfNode, int label){
@@ -72,6 +76,12 @@ public class Node {
 	this.right = right;
     }
 
-    
+    public void setTypeOfNode(int typeOfNode) {
+        this.typeOfNode = typeOfNode;
+    }
+
+    public void setLabel(int label) {
+        this.label = label;
+    }
           
 }
