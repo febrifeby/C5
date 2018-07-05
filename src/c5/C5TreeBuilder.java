@@ -24,25 +24,26 @@ public class C5TreeBuilder
     }
 
     private static Node build(Object[][] table, Node parent){
-        int tableWidth = table[0].length;
         // if data dalam table memiliki kelas yang sama, maka return node leaf        
         Double classOfFirstData = new Double(0);
         for (int i = 0; i < table.length; i++)
         {
             if (i == 0)
-                classOfFirstData = new Double((Double)table[i][tableWidth - 2]-1);
+                classOfFirstData = new Double((Double)table[i][table[0].length - 2]-1);
             
-            if (table.length > 1 && !classOfFirstData.equals((Double)table[i][tableWidth - 2]))
+            if (table.length > 1 && !classOfFirstData.equals((Double)table[i][table[0].length - 2]))
                 break;
             else if (i == table.length - 1)
-                parent = new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
+            {
+                return new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
+            }
         }
         
         // calculate entropy total
         int params[] = new int[5];        
 	for (int i = 1; i < table.length; i++)
 	{
-	    params[((Double)table[i][tableWidth - 2]).intValue() - 1]++;
+	    params[((Double)table[i][table[0].length - 2]).intValue() - 1]++;
 	}
         int defaultClass = -1;
         int maxClass = -1;
@@ -59,6 +60,7 @@ public class C5TreeBuilder
             return parent;
         }
 
+        int tableWidth = table[0].length;
         
 	double totalEntropy = calculateEntropy(params, table.length);
         
@@ -106,7 +108,7 @@ public class C5TreeBuilder
         }
         
         if (parent.blackListLabel.contains((Integer)choosenG))
-            return null;
+            return new Node(Node.TYPE_LEAF, defaultClass + 100);
         parent.blackListLabel.add(choosenG);
         parent.setLabel(choosenG);
         System.out.println(parent.getLabel());
@@ -176,12 +178,12 @@ public class C5TreeBuilder
     
     private static double calculateGainRatio(double totalEntropy, double attributeEntropy)
     {
-	return (totalEntropy - attributeEntropy)/totalEntropy;
+	return (totalEntropy - attributeEntropy);
     }
     
     public static void main(String[] args)
     {
-        initiateBuild(new Node());
+        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)).output());
     }
 }
 

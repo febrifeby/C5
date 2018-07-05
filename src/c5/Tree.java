@@ -31,4 +31,19 @@ public class Tree {
     public int classify() {
         return 0;
     }
+    
+    public String output()
+    {
+        String temp = "";
+        Node pointer = head;
+        
+        while (pointer.getTypeOfNode() == Node.TYPE_CLASSIFIER)
+        {   
+            temp += pointer.getLabel() + " ";
+            pointer = pointer.getRight();
+        }
+        temp += pointer.getLabel();
+        
+        return temp;
+    }
 }

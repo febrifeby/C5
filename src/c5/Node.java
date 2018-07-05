@@ -31,9 +31,7 @@ public class Node {
     private Node right;
     
     public LinkedList<Integer> blackListLabel = new LinkedList<Integer>();
-    
-    public Node(){}
-    
+
     public Node(int typeOfNode, int label){
         this(typeOfNode, label, null, null);
     }
