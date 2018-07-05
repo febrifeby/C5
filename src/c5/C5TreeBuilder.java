@@ -5,7 +5,7 @@
  */
 package c5;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -13,206 +13,180 @@ import java.util.ArrayList;
  */
 public class C5TreeBuilder 
 {
-    private Node root;
-    private ArrayList<ArrayList> dataset;
+    private static Object[][] dataset = DatabaseReader.getTable();
+    
+    public static Tree initiateBuild(Node root)
+    {
+        Tree tree = null;
+	tree = new Tree(build(C5TreeBuilder.dataset, root));
+        
+        return tree;
+    }
 
-    public C5TreeBuilder()
-    {
-	dataset = new ArrayList();
-	
-	populateDataset();
-	initiateBuild();
-    }
-    
-    public void initiateBuild()
-    {
-	if ( root == null ) {
-	    build(this.dataset, root);
-	}
-    }
-    
-    public Node search()
-    {
-	return null;
-    }
-    
-    
-    // this method only for development use
-    private void populateDataset()
-    {
-	ArrayList e = new ArrayList();
-	e.add(true);
-	e.add(true);
-	e.add(0);
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(true);
-	e.add(false);
-	e.add(1);
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(false);
-	e.add(false);
-	e.add(1);
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-	
-	e.add(false);
-	e.add(true);
-	e.add(0);
-	dataset.add((ArrayList)e.clone());
-	e.clear();
-    }
-    
-    private Node build(ArrayList<ArrayList> dataset, Node parentNode)
-    {
-	// if condition to create more node fulfilled
-	
-	
-	int params[] = new int[2];
-	
-	for (int i = 0; i < dataset.size(); i++)
+    private static Node build(Object[][] table, Node parent){
+        // if data dalam table memiliki kelas yang sama, maka return node leaf        
+        Double classOfFirstData = new Double(0);
+        for (int i = 0; i < table.length; i++)
+        {
+            if (i == 0)
+                classOfFirstData = new Double((Double)table[i][table[0].length - 2]-1);
+            
+            if (table.length > 1 && !classOfFirstData.equals((Double)table[i][table[0].length - 2]))
+                break;
+            else if (i == table.length - 1)
+            {
+                return new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
+            }
+        }
+        
+        // calculate entropy total
+        int params[] = new int[5];        
+	for (int i = 1; i < table.length; i++)
 	{
-	    params[(int)dataset.get(i).get(2)]++;
+	    params[((Double)table[i][table[0].length - 2]).intValue() - 1]++;
 	}
-	double totalEntropy = calculateEntropy(params, dataset.size());
-	
-	// kesal ya
-	int cases = 0;
-	params[0] = params[1] = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if ((boolean)dataset.get(i).get(0))
-	    {
-		params[(int)dataset.get(i).get(2)]++;
-		cases++;
-	    }
-	    
-	}
-	double attr1YesEntropy = calculateEntropy(params, cases);
-	
-	// kesal tidak
-	params[0] = params[1] = 0;
-	cases = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if (!(boolean)dataset.get(i).get(0))
-	    {
-		params[(int)dataset.get(i).get(2)]++;
-		cases++;
-	    }
-	    
-	}
-	double attr1NoEntropy = calculateEntropy(params, cases);
-	
-	// kesal gabungan
-	params[0] = params[1] = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if (!(boolean)dataset.get(i).get(0))
-	    {
-		params[0]++;
-	    }
-	    else
-	    {
-		params[1]++;
-	    }
-	    
-	}
-	double attr1Gabungan = calculateEntropy(
-		params,
-		new double[]{attr1YesEntropy, attr1NoEntropy}, 
-		dataset.size());
-	
-	// senang ya
-	params[0] = params[1] = 0;
-	cases = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if ((boolean)dataset.get(i).get(1))
-	    {
-		params[(int)dataset.get(i).get(2)]++;
-		cases++;
-	    }
-	    
-	}
-	double attr2YesEntropy = calculateEntropy(params, cases);
-	
-	// senang tidak
-	params[0] = params[1] = 0;
-	cases = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if (!(boolean)dataset.get(i).get(1))
-	    {
-		params[(int)dataset.get(i).get(2)]++;
-		cases++;
-	    }
-	    
-	}
-	double attr2NoEntropy = calculateEntropy(params, cases);
-	
-	// senang gabungan
-	params[0] = params[1] = 0;
-	for (int i = 0; i < dataset.size(); i++)
-	{
-	    if (!(boolean)dataset.get(i).get(1))
-	    {
-		params[0]++;
-	    }
-	    else
-	    {
-		params[1]++;
-	    }
-	    
-	}
-	
-	double attr2Gabungan = calculateEntropy(
-		params,
-		new double[]{attr2YesEntropy, attr2NoEntropy}, 
-		dataset.size());
-	
-	// gain
-	double gainAttr1 = calculateGain(totalEntropy, attr1Gabungan);
-	double gainAttr2 = calculateGain(totalEntropy, attr2Gabungan);
-	
-	// search for highest gain
-	
-	
+        int defaultClass = -1;
+        int maxClass = -1;
+        for (int i = 0; i < params.length; i++)
+            if (maxClass < params[i])
+            {
+                defaultClass = i;
+                maxClass = params[i];
+            }
+        
+        if (table.length == 0 || table == null)
+        {
+            parent = new Node(Node.TYPE_LEAF, defaultClass + 100);
+            return parent;
+        }
+
+        int tableWidth = table[0].length;
+        
+	double totalEntropy = calculateEntropy(params, table.length);
+        
+        // calculate entropy per G
+        double[][] entropyPerG = new double[tableWidth - 3][2]; // 0 = no, 1 = yes
+        double[] entropyPerGGabungan = new double[tableWidth - 3];
+        int[][] paramsPerG0 = new int[tableWidth - 3][5]; // kelas 0 - 4
+        int[][] paramsPerG1 = new int[tableWidth - 3][5]; // kelas 0 - 4
+        
+        for (int j = 0; j < entropyPerG.length; j++)
+        {
+            int yes = 0;
+            int no = 0;
+            for (int i = 0; i < table.length; i++)
+            {
+                if (((Double)table[i][j + 1]).intValue() == 0) {
+                    paramsPerG0[j][((Double)table[i][tableWidth - 2]).intValue() - 1]++;
+                    no++;
+                }
+                else {
+                    paramsPerG1[j][((Double)table[i][tableWidth - 2]).intValue() - 1]++;
+                    yes++;
+                }
+            }
+            entropyPerG[j][0] = calculateEntropy(paramsPerG0[j], table.length);
+            entropyPerG[j][1] = calculateEntropy(paramsPerG1[j], table.length);   
+            
+            // calculate entropy gabungan
+            entropyPerGGabungan[j] = calculateEntropy(new int[]{no, yes}, 
+                    new double[]{entropyPerG[j][0], entropyPerG[j][1]}, table.length);
+        }
+                
+        // calculate gain and search for highest 
+        double gainRatioPerG[] = new double[tableWidth - 3];
+        int choosenG = -1;
+        double highestGainRatio = -1;
+        
+        for (int i = 0; i < gainRatioPerG.length; i++)
+        {
+            gainRatioPerG[i] = calculateGainRatio(totalEntropy, entropyPerGGabungan[i]);
+            if (highestGainRatio <= gainRatioPerG[i]){
+                highestGainRatio = gainRatioPerG[i];
+                choosenG = i;
+            }
+        }
+        
+        if (parent.blackListLabel.contains((Integer)choosenG))
+            return new Node(Node.TYPE_LEAF, defaultClass + 100);
+        parent.blackListLabel.add(choosenG);
+        parent.setLabel(choosenG);
+        System.out.println(parent.getLabel());
+        
+        // build new table        
+        LinkedList<Object[]> listYes = new LinkedList<>();
+        LinkedList<Object[]> listNo = new LinkedList<>();
+        Object[][] tableYes = null;
+        Object[][] tableNo = null;
+        
+        for (int i = 0; i < table.length; i++)
+        {
+            if (((Double)table[i][choosenG + 1]).intValue() == 1)
+                listYes.add(table[i]);
+            else
+                listNo.add(table[i]);
+        }
+        
+        tableYes = new Object[listYes.size()][tableWidth];
+        tableNo = new Object[listNo.size()][tableWidth];
+        
+        for (int i = 0; i < listYes.size(); i++)
+            tableYes[i] = listYes.get(i);
+        
+        for (int i = 0; i < listNo.size(); i++)
+            tableNo[i] = listNo.get(i);
+        
 	// let the recursive plays its role!!!
-	parentNode.setLeft(build(dataset, new Node()));
-	parentNode.setRight(build(dataset, new Node()));
-	
-	return null;
+        Node newParent = new Node(Node.TYPE_CLASSIFIER, -1);
+        if (parent.blackListLabel != null)
+            for (Integer i : parent.blackListLabel)
+                newParent.blackListLabel.add(i);
+        
+        System.out.println("kiri");
+	if (tableYes != null) parent.setLeft(build(tableYes, newParent));
+        System.out.println("kanan");
+	if (tableNo != null) parent.setRight(build(tableNo, newParent));
+
+        return parent;
     }
     
-    /*
-    * used for calculate entropy separately
-    * params[] amount of each class in dataset
-    */
-    private double calculateEntropy(int[] params, double totalCase)
+    private static double calculateEntropy(int[] params, double totalCase)
     {
-	double sum = 0;
+        double sum = 0;
 	for (int i = 0; i < params.length; i++)
 	{
-	    sum += ((params[i]/totalCase) * -1)*Math.log(params[i]/totalCase)/Math.log(2.0);
-	}
-	
-	return sum;
+            if (params[i] != 0)
+                sum += ((params[i]/totalCase) * -1)*Math.log(params[i]/totalCase)/Math.log(2.0);
+	}	
+        return sum;
     }
     
     /*
     * used to combine entropy among classes
     */
-    private double calculateEntropy(int[] params, double[] entropy, double totalCase)
+    private static double calculateEntropy(int[] params, double[] entropy, double totalCase)
     {
-	return 0;
+        double sum = 0;
+        
+        for (int i = 0; i < params.length; i++)
+        {
+            sum += (params[i]/totalCase) * entropy[i];
+        }
+        
+	return sum;
     }
     
-    private double calculateGain(double totalEntropy, double attributeEntropy)
+    private static double calculateGainRatio(double totalEntropy, double attributeEntropy)
     {
-	return totalEntropy - attributeEntropy;
+	return (totalEntropy - attributeEntropy);
+    }
+    
+    public static void main(String[] args)
+    {
+        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)).output());
     }
 }
+
+
+
+
