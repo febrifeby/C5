@@ -29,6 +29,24 @@ public class Node {
     private int label;
     private Node left;
     private Node right;
+    private Node parent;
+    private boolean explored = false;
+
+    public boolean isExplored() {
+        return explored;
+    }
+
+    public void setExplored(boolean explored) {
+        this.explored = explored;
+    }
+    
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
     
     public LinkedList<Integer> blackListLabel = new LinkedList<Integer>();
 

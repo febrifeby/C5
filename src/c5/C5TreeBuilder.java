@@ -56,8 +56,9 @@ public class C5TreeBuilder
         
         if (table.length == 0 || table == null)
         {
-            parent = new Node(Node.TYPE_LEAF, defaultClass + 100);
-            return parent;
+            Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
+            newNode.setParent(parent);
+            return newNode;
         }
 
         int tableWidth = table[0].length;
@@ -108,10 +109,13 @@ public class C5TreeBuilder
         }
         
         if (parent.blackListLabel.contains((Integer)choosenG))
-            return new Node(Node.TYPE_LEAF, defaultClass + 100);
+        {
+            Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
+            newNode.setParent(parent);
+            return newNode;
+        }
         parent.blackListLabel.add(choosenG);
         parent.setLabel(choosenG);
-        System.out.println(parent.getLabel());
         
         // build new table        
         LinkedList<Object[]> listYes = new LinkedList<>();
@@ -138,13 +142,12 @@ public class C5TreeBuilder
         
 	// let the recursive plays its role!!!
         Node newParent = new Node(Node.TYPE_CLASSIFIER, -1);
+        newParent.setParent(parent);
         if (parent.blackListLabel != null)
             for (Integer i : parent.blackListLabel)
                 newParent.blackListLabel.add(i);
         
-        System.out.println("kiri");
 	if (tableYes != null) parent.setLeft(build(tableYes, newParent));
-        System.out.println("kanan");
 	if (tableNo != null) parent.setRight(build(tableNo, newParent));
 
         return parent;
@@ -183,7 +186,7 @@ public class C5TreeBuilder
     
     public static void main(String[] args)
     {
-        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)).output());
+        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)));
     }
 }
 
