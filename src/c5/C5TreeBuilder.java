@@ -15,10 +15,15 @@ public class C5TreeBuilder
 {
     private static Object[][] dataset = DatabaseReader.getTable();
     
-    public static Tree initiateBuild(Node root)
+    public static Tree initiateBuild(Node root, Integer amount)
     {
+        Object[][] newDataset = new Object[amount][dataset[0].length];
+        
+        for (int i = 0; i < amount.intValue(); i++)
+            newDataset[i] = dataset[i];
+        
         Tree tree = null;
-	tree = new Tree(build(C5TreeBuilder.dataset, root, "kiri"));
+	tree = new Tree(build(newDataset, root, "kiri"));
         
         return tree;
     }
@@ -188,7 +193,7 @@ public class C5TreeBuilder
     
     public static void main(String[] args)
     {
-        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)));
+//        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)));
     }
 }
 
