@@ -18,12 +18,12 @@ public class C5TreeBuilder
     public static Tree initiateBuild(Node root)
     {
         Tree tree = null;
-	tree = new Tree(build(C5TreeBuilder.dataset, root));
+	tree = new Tree(build(C5TreeBuilder.dataset, root, "kiri"));
         
         return tree;
     }
 
-    private static Node build(Object[][] table, Node parent){
+    private static Node build(Object[][] table, Node parent, String debug){
         // if data dalam table memiliki kelas yang sama, maka return node leaf        
         Double classOfFirstData = new Double(0);
         for (int i = 0; i < table.length; i++)
@@ -35,7 +35,9 @@ public class C5TreeBuilder
                 break;
             else if (i == table.length - 1)
             {
-                return new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
+                Node newNode = new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
+                newNode.setParent(parent.getParent());
+                return newNode;
             }
         }
         
@@ -57,7 +59,7 @@ public class C5TreeBuilder
         if (table.length == 0 || table == null)
         {
             Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
-            newNode.setParent(parent);
+            newNode.setParent(parent.getParent());
             return newNode;
         }
 
@@ -108,14 +110,12 @@ public class C5TreeBuilder
             }
         }
         
-        if (parent.blackListLabel.contains((Integer)choosenG))
+        if (parent.blackListLabel.contains((Integer)choosenG) || choosenG == -1)
         {
             Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
-            newNode.setParent(parent);
+            newNode.setParent(parent.getParent());
             return newNode;
         }
-        parent.blackListLabel.add(choosenG);
-        parent.setLabel(choosenG);
         
         // build new table        
         LinkedList<Object[]> listYes = new LinkedList<>();
@@ -140,17 +140,19 @@ public class C5TreeBuilder
         for (int i = 0; i < listNo.size(); i++)
             tableNo[i] = listNo.get(i);
         
+        parent.setLabel(choosenG);
+        
 	// let the recursive plays its role!!!
-        Node newParent = new Node(Node.TYPE_CLASSIFIER, -1);
+        parent.blackListLabel.add(choosenG);
+        Node newParent = new Node(Node.TYPE_CLASSIFIER, parent.getLabel());
         newParent.setParent(parent);
         if (parent.blackListLabel != null)
             for (Integer i : parent.blackListLabel)
                 newParent.blackListLabel.add(i);
         
-	if (tableYes != null) parent.setLeft(build(tableYes, newParent));
-	if (tableNo != null) parent.setRight(build(tableNo, newParent));
-
-        return parent;
+	if (tableYes != null) parent.setLeft(build(tableYes, newParent, "kiri"));
+	if (tableNo != null) parent.setRight(build(tableNo, newParent.clone(), "kanan"));
+        return parent.clone();
     }
     
     private static double calculateEntropy(int[] params, double totalCase)

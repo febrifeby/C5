@@ -99,5 +99,14 @@ public class Node {
     public void setLabel(int label) {
         this.label = label;
     }
-          
+    
+    public Node clone() {
+        Node newNode = new Node(this.typeOfNode, this.label, this.left, this.right);
+        newNode.blackListLabel = this.blackListLabel;
+        newNode.explored = this.explored;
+        newNode.parent = this.parent;
+        return newNode;
+    }
+    
+    
 }

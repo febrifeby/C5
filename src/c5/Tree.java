@@ -39,8 +39,8 @@ public class Tree {
     {
         Node pointer = head;
         String temp = "Root: " + pointer.getLabel() + "\n";
-        pointer = pointer.getLeft();
-        int height = 1;
+        pointer.setExplored(true);
+        int height = 0;
         
 //        while (pointer.getTypeOfNode() == Node.TYPE_CLASSIFIER)
 //        {   
@@ -54,27 +54,31 @@ public class Tree {
         {
             if (pointer.getLeft() != null && !pointer.getLeft().isExplored())
             {   
+                pointer = pointer.getLeft();
+                height++;
                 String space = "";
                 for (int i = 0; i < height; i++) space += "    ";
-                temp += space + "Left: " + pointer.getLabel() + "\n";
-                pointer = pointer.getLeft();
+                temp += space + "Left: " + pointer.getLabel() + ";Parent: " + pointer.getParent().getLabel() + "\n";
                 pointer.setExplored(true);
-                height++;
                 continue;
             }
             
             if (pointer.getRight() != null && !pointer.getRight().isExplored())
             {   
+                pointer = pointer.getRight();
+                height++;
                 String space = "";
                 for (int i = 0; i < height; i++) space += "    ";
-                temp += space + "Right: " + pointer.getLabel() + "\n";
-                pointer = pointer.getRight();
+                temp += space + "Right: " + pointer.getLabel() + ";Parent: " + pointer.getParent().getLabel() + "\n";
                 pointer.setExplored(true);
-                height++;
                 continue;
             }
-            height--;
-            pointer = pointer.getParent();
+            
+            if ((pointer.getRight() == null && pointer.getLeft() == null) || 
+                    (pointer.getRight().isExplored() && pointer.getLeft().isExplored())) {
+                height--;
+                pointer = pointer.getParent();
+            }
         }
         return temp;
     }
