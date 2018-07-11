@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class C5TreeBuilder 
 {
-    private static Object[][] dataset = DatabaseReader.getTable();
+    private static Object[][] dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
     
     public static Tree initiateBuild(Node root, Integer amount)
     {

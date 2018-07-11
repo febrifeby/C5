@@ -17,18 +17,20 @@ import java.util.LinkedList;
 
 public class DatabaseReader
 {
-    private static final String FILE_NAME = "C:\\Users\\Nously\\Documents\\NetBeansProjects\\C5\\src\\c5\\DATASET.xlsx";
+    public static final String TRAINING_FILE_NAME = "C:\\Users\\Nously\\Documents\\NetBeansProjects\\C5\\src\\c5\\DATASET.xlsx";
+    public static final String TESTING_FILE_NAME = "C:\\Users\\Nously\\Documents\\NetBeansProjects\\C5\\src\\c5\\Data Testing.xlsx";
     private static LinkedList<LinkedList<Object>> temp = new LinkedList<LinkedList<Object>>();
     
     public static Object[] getTableHeader() {
         return temp.getFirst().toArray();
     }
     
-    public static Object[][] getTable() {        
+    public static Object[][] getTable(String fileName) {        
         Object[][] table = null;
+        temp.clear();
         try {
             FileInputStream excelFile = new FileInputStream(
-                    new File(FILE_NAME));
+                    new File(fileName));
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet sheet = workbook.getSheetAt(1);
             Iterator<Row> iterator = sheet.iterator();

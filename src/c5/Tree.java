@@ -34,6 +34,27 @@ public class Tree {
         return 0;
     }
     
+    public int test(Object[] data) {
+        
+        Node evaluatedNode = this.head;
+        int classOfData = 0;
+        
+        while (evaluatedNode != null)
+        {
+//            evaluatedNode = evaluatedNode.getLeft();
+            if (evaluatedNode.getLabel() >= 100)
+            {
+                classOfData = evaluatedNode.getLabel();
+                evaluatedNode = null;
+            }
+            else if (((Double)data[1+evaluatedNode.getLabel()]).floatValue() == 1.0)
+                evaluatedNode = evaluatedNode.getLeft();
+            else if (((Double)data[1+evaluatedNode.getLabel()]).floatValue() == 0.0)
+                evaluatedNode = evaluatedNode.getRight();
+        }
+        return classOfData;
+    }
+    
     @Override
     public String toString()
     {
@@ -42,14 +63,6 @@ public class Tree {
         pointer.setExplored(true);
         int height = 0;
         
-//        while (pointer.getTypeOfNode() == Node.TYPE_CLASSIFIER)
-//        {   
-//            String space = "";
-//            for (int i = 0; i < height; i++) space += "    ";
-//            temp += pointer.getLabel() + "\n" + space + "Left: ";
-//            pointer = pointer.getLeft();
-//            height++;
-//        }
         while (pointer != null)
         {
             if (pointer.getLeft() != null && !pointer.getLeft().isExplored())

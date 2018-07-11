@@ -6,6 +6,7 @@
 package c5;
 
 import java.awt.Color;
+import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import org.apache.poi.ss.usermodel.Sheet;
 import javax.swing.table.TableColumn;
@@ -14,7 +15,9 @@ import javax.swing.table.TableColumn;
  * @author feby
  */
 public class UI extends javax.swing.JFrame {
-
+    Object[][] dataTesting;
+    private Tree tree;
+    
     /**
      * Creates new form UI
      */
@@ -27,189 +30,19 @@ public class UI extends javax.swing.JFrame {
     public void lebarKolom(){ 
         TableColumn column;
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
-        column = jTable1.getColumnModel().getColumn(0); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(1); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(2); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(3); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(4); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(5); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(6); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(7); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(8); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(9); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(10); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(11); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(12); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(13); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(14); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(15); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(16); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(17); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(18); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(19); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(20); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(21); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(22); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(23); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(24); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(25); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(26); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(27); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(28); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(29); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(30); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(31); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(32); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(33); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(34); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(35); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(36); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(37); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(38); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(39); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(40); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(41); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(42); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(43); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(44); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(45); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(46); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(47); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(48); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(49); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(50); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(51); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(52); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(53); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(54); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(55); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(56); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(57); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(58); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(59); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(60); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(61); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(62); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(63); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(64); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(65); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(66); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(67); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(68); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(69); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(70); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(71); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(72); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(73); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(74); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(75); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(76); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(77); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(78); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(79); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(80); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(81); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(82); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(83); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(84); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(85); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(86); 
-        column.setPreferredWidth(50); 
-        column = jTable1.getColumnModel().getColumn(87); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(88); 
-        column.setPreferredWidth(50);
-        column = jTable1.getColumnModel().getColumn(89); 
-        column.setPreferredWidth(50); 
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        
+        for (int i = 0; i < 90; i++){
+            column = jTable1.getColumnModel().getColumn(i); 
+            column.setPreferredWidth(50);
+            column = jTable2.getColumnModel().getColumn(i); 
+            column.setPreferredWidth(50);
+        }
+        
         column = jTable1.getColumnModel().getColumn(90); 
         column.setPreferredWidth(130);
-
+        column = jTable2.getColumnModel().getColumn(90); 
+        column.setPreferredWidth(130);
     }
 
 
@@ -337,6 +170,7 @@ public class UI extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Parameter", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 3, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
+        jTextField1.setText("50");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -364,11 +198,11 @@ public class UI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
         );
@@ -415,17 +249,7 @@ public class UI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Komputasi", jLayeredPane1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(testing(), testing2()));
         jScrollPane3.setViewportView(jTable2);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -480,6 +304,7 @@ public class UI extends javax.swing.JFrame {
 
         jLabel4.setText("Jumlah Data Uji");
 
+        jTextField2.setText("1");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -645,8 +470,8 @@ public class UI extends javax.swing.JFrame {
         // TODO add your handling code here:
         Integer amountOfData = Integer.parseInt(jTextField1.getText());
         
-        Tree tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
-        jTextArea1.setText(tree.toString());
+        this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
+        jTextArea1.setText(this.tree.toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -655,6 +480,21 @@ public class UI extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        int correct = 0;
+        int totalCase = Integer.parseInt(jTextField2.getText());
+        if (totalCase > 22) totalCase = 22;
+        for (int i = 0; i < totalCase; i++){
+            Double x = ((Double)dataTesting[i][89]);
+            double target = (double)this.tree.test(this.dataTesting[i])-99;
+            if (x.equals(target))
+                correct++;
+        }
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        
+        jTextField7.setText("" + correct);
+        jTextField8.setText((totalCase - correct) + "");
+        jTextField9.setText(df.format((double)correct/totalCase*100) + "%");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -670,10 +510,19 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1ComponentResized
 
     public Object[][] test (){
-        return DatabaseReader.getTable();
+        return DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
     }
     
     public Object[] test2 (){
+        return DatabaseReader.getTableHeader();
+    }
+    
+    public Object[][] testing (){
+        this.dataTesting = DatabaseReader.getTable(DatabaseReader.TESTING_FILE_NAME);
+        return this.dataTesting;
+    }
+    
+    public Object[] testing2 (){
         return DatabaseReader.getTableHeader();
     }
     /**
