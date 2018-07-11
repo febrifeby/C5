@@ -162,6 +162,14 @@ public class C5TreeBuilder
         
 	if (tableYes != null) parent.setLeft(build(tableYes, newParent, "kiri"));
 	if (tableNo != null) parent.setRight(build(tableNo, newParent.clone(), "kanan"));
+        
+        if (parent.getLeft().getLabel() == parent.getRight().getLabel())
+        {
+            parent.setLeft(null);
+            parent.setRight(null);
+            parent.setLabel(100 + defaultClass);
+        }
+        
         return parent.clone();
     }
     
