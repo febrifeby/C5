@@ -80,6 +80,11 @@ public class C5TreeBuilder
         
         for (int j = 0; j < entropyPerG.length; j++)
         {
+            if (parent.blackListLabel.contains((Integer)j))
+            {
+                entropyPerGGabungan[j] = 0;
+            }
+            
             int yes = 0;
             int no = 0;
             for (int i = 0; i < table.length; i++)
