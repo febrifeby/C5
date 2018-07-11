@@ -191,10 +191,6 @@ public class C5TreeBuilder
 	return (totalEntropy - attributeEntropy);
     }
     
-    public static void main(String[] args)
-    {
-//        System.out.println(initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0)));
-    }
 }
 
 

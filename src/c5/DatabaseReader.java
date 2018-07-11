@@ -17,7 +17,7 @@ import java.util.LinkedList;
 
 public class DatabaseReader
 {
-    private static final String FILE_NAME = "C:\\Users\\Nously\\Documents\\NetBeansProjects\\C5\\src\\c5\\DATASET.xlsx";
+    private static final String FILE_NAME = "C:\\Users\\feby\\Documents\\NetBeansProjects\\C5\\src\\c5\\DATASET.xlsx";
     private static LinkedList<LinkedList<Object>> temp = new LinkedList<LinkedList<Object>>();
     
     public static Object[] getTableHeader() {
