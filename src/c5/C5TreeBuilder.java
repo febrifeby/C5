@@ -7,13 +7,108 @@ package c5;
 
 import java.util.LinkedList;
 
-/**
- *
- * 
- */
 public class C5TreeBuilder 
 {
     private static Object[][] dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
+    
+    public Tree[] boosting(int trial, Integer amount)
+    {
+        Object[][] newDataset = new Object[amount][dataset[0].length];
+        
+        for (int i = 0; i < amount.intValue(); i++)
+            newDataset[i] = dataset[i];
+        
+        Tree[] trees = new Tree[trial];
+        double selectedAndWeight[][] = new double[dataset.length][2];
+        
+        // assign initial weight
+        for (int i = 0; i < dataset.length; i++)
+        {
+            selectedAndWeight[i][0] = (i < amount) ? 1 : 0;
+            selectedAndWeight[i][1] = 1/dataset.length;
+        }
+        
+        for (int i = 0; i < trial; i++)
+        {   
+            double p[] = new double[selectedAndWeight.length];
+            boolean theta[] = new boolean[selectedAndWeight.length];
+            
+            // weight normalization
+            for (int j = 0; j < selectedAndWeight.length; j++)
+                p[j] = normalize(selectedAndWeight[j][1], selectedAndWeight);
+            
+            // make a tree add to array trees
+            Object[][] datasetBoost = new Object[amount][dataset[0].length];
+            for (int j = 0; j < selectedAndWeight.length; j++)
+            {
+                int found = 0;
+                
+                if (selectedAndWeight[j][0] == 1.0)
+                {
+                    datasetBoost[found] = dataset[j];
+                    found++;
+                }
+                
+                if (found == amount.intValue())
+                    break;
+            }
+            trees[i] = initiateBuild(datasetBoost);
+            
+            // testing
+            boolean testResult[] = new boolean[selectedAndWeight.length];
+            double e = 0;
+            for (int j = 0; j < selectedAndWeight.length; j++)
+            {
+                testResult[j] = 
+                        (trees[i].test(dataset[j]) == ((Integer)dataset[j][dataset[0].length - 2]).intValue())? 
+                        true:false;
+             
+                // calculate error rate
+                if (!testResult[j])
+                {
+                    e += p[j];
+                }
+            }            
+            if (e > 0.5) return null;
+            else if (e == 0.5) return trees;
+            
+            // calculate beta
+            double beta = e / (1-e);
+            
+            // calculate new weight
+            for (int j = 0; j < selectedAndWeight.length; j++)
+            {
+                selectedAndWeight[j][0] = 0.0;
+                selectedAndWeight[j][1] = 
+                        (testResult[j])? selectedAndWeight[j][1]*beta: selectedAndWeight[j][1];
+            }
+            
+            // build new training dataset
+        }
+        
+        return trees;
+    }
+    
+    public double normalize(double weight, double[][] selectedAndWeight)
+    {
+        double normal = 0;
+        double sum = 0;
+        
+        for (int i = 0; i < selectedAndWeight.length; i++)
+            sum += selectedAndWeight[i][1];
+        
+        normal = weight/sum;
+        
+        return normal;
+    }
+    
+    public static Tree initiateBuild(Object[][] datasetBoost)
+    {
+        Tree tree = null;
+	tree = new Tree(build(datasetBoost, new Node(Node.TYPE_CLASSIFIER, 0), "kiri"));
+        
+        return tree;
+    }
     
     public static Tree initiateBuild(Node root, Integer amount)
     {
