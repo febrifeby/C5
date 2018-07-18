@@ -19,11 +19,11 @@ public class Node {
     // these value are just some random number
     // classifier label is integer 1 - 88
     // leaf label is:
-    public static final int LABEL_LEAF_PARANOID = 110;
-    public static final int LABEL_LEAF_HEBREFENIK = 120;
-    public static final int LABEL_LEAF_KATATONIK = 130;
-    public static final int LABEL_LEAF_UNDIFFERENTIATED = 140;
-    public static final int LABEL_LEAF_SIMPLEKS = 150;
+//    public static final int LABEL_LEAF_PARANOID = 110;
+//    public static final int LABEL_LEAF_HEBREFENIK = 120;
+//    public static final int LABEL_LEAF_KATATONIK = 130;
+//    public static final int LABEL_LEAF_UNDIFFERENTIATED = 140;
+//    public static final int LABEL_LEAF_SIMPLEKS = 150;
     
     private int typeOfNode;
     private int label;

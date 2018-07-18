@@ -33,16 +33,16 @@ public class UI extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         
-        for (int i = 0; i < 90; i++){
+        for (int i = 0; i < 40; i++){
             column = jTable1.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
             column = jTable2.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
         }
         
-        column = jTable1.getColumnModel().getColumn(90); 
+        column = jTable1.getColumnModel().getColumn(40); 
         column.setPreferredWidth(130);
-        column = jTable2.getColumnModel().getColumn(90); 
+        column = jTable2.getColumnModel().getColumn(40); 
         column.setPreferredWidth(130);
     }
 
@@ -470,6 +470,7 @@ public class UI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Integer amountOfData = Integer.parseInt(jTextField1.getText());
+        if (amountOfData > 72) amountOfData = 72;
         if (jCheckBox1.isSelected()) {
             System.out.println("c5.UI.jButton1ActionPerformed()");
             Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
@@ -499,9 +500,9 @@ public class UI extends javax.swing.JFrame {
         // TODO add your handling code here:
         int correct = 0;
         int totalCase = Integer.parseInt(jTextField2.getText());
-        if (totalCase > 22) totalCase = 22;
+        if (totalCase > 18) totalCase = 18;
         for (int i = 0; i < totalCase; i++){
-            Double x = ((Double)dataTesting[i][89]);
+            Double x = ((Double)dataTesting[i][39]);
             double target = 0;
             
             if (jCheckBox1.isSelected()){
