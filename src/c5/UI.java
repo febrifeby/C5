@@ -470,6 +470,7 @@ public class UI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Integer amountOfData = Integer.parseInt(jTextField1.getText());
+        if (amountOfData > 111) amountOfData = 111;
         if (jCheckBox1.isSelected()) {
             System.out.println("c5.UI.jButton1ActionPerformed()");
             Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
