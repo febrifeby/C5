@@ -6,32 +6,38 @@
 package c5;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class C5TreeBuilder 
 {
     private static Object[][] dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
     
-    public Tree[] boosting(int trial, Integer amount)
-    {
-        Object[][] newDataset = new Object[amount][dataset[0].length];
-        
-        for (int i = 0; i < amount.intValue(); i++)
-            newDataset[i] = dataset[i];
-        
+    public static Tree[] boosting(int trial, Integer amount)
+    {        
         Tree[] trees = new Tree[trial];
         double selectedAndWeight[][] = new double[dataset.length][2];
+        
+        int choosen = 0;
+        while (choosen < amount)
+        {
+            Random r = new Random();
+            int index = r.nextInt(dataset.length);
+            if (selectedAndWeight[index][0] == 1.0)
+                continue;
+            
+            selectedAndWeight[index][0] = 1.0;
+            choosen++;
+        }
         
         // assign initial weight
         for (int i = 0; i < dataset.length; i++)
         {
-            selectedAndWeight[i][0] = (i < amount) ? 1 : 0;
-            selectedAndWeight[i][1] = 1/dataset.length;
+            selectedAndWeight[i][1] = 1.0/dataset.length;
         }
         
         for (int i = 0; i < trial; i++)
         {   
             double p[] = new double[selectedAndWeight.length];
-            boolean theta[] = new boolean[selectedAndWeight.length];
             
             // weight normalization
             for (int j = 0; j < selectedAndWeight.length; j++)
@@ -39,10 +45,9 @@ public class C5TreeBuilder
             
             // make a tree add to array trees
             Object[][] datasetBoost = new Object[amount][dataset[0].length];
+            int found = 0;
             for (int j = 0; j < selectedAndWeight.length; j++)
-            {
-                int found = 0;
-                
+            {                
                 if (selectedAndWeight[j][0] == 1.0)
                 {
                     datasetBoost[found] = dataset[j];
@@ -59,9 +64,10 @@ public class C5TreeBuilder
             double e = 0;
             for (int j = 0; j < selectedAndWeight.length; j++)
             {
+//                Double y = ((Double)dataset[j][dataset[0].length - 2]);
+                
                 testResult[j] = 
-                        (trees[i].test(dataset[j]) == ((Integer)dataset[j][dataset[0].length - 2]).intValue())? 
-                        true:false;
+                        (trees[i].test(dataset[j]) == ((Double)dataset[j][dataset[0].length - 2]).intValue()+99);
              
                 // calculate error rate
                 if (!testResult[j])
@@ -74,22 +80,48 @@ public class C5TreeBuilder
             
             // calculate beta
             double beta = e / (1-e);
+            int selected = 0;      
+            trees[i].setBeta(beta);
+            // duplicate selectedAndWeight
+            double duplicate[][] = new double[selectedAndWeight.length][2];
+            for (int j = 0; j < selectedAndWeight.length; j++)
+            {
+                duplicate[j][0] = selectedAndWeight[j][0];
+                duplicate[j][1] = selectedAndWeight[j][1];
+            }
             
-            // calculate new weight
+            // calculate new weight and build new training dataset
             for (int j = 0; j < selectedAndWeight.length; j++)
             {
                 selectedAndWeight[j][0] = 0.0;
                 selectedAndWeight[j][1] = 
                         (testResult[j])? selectedAndWeight[j][1]*beta: selectedAndWeight[j][1];
+                
+                if (!testResult[j] && selected < amount.intValue()) {
+                    selectedAndWeight[j][0] = 1.0;
+                    selected++; 
+                }                
             }
             
-            // build new training dataset
+            if (selected < amount.intValue())
+            {
+                for (int j = 0; j < selectedAndWeight.length; j++)
+                {
+                    if (duplicate[j][0] == 1.0 && selectedAndWeight[j][0] == 0.0)
+                    {
+                        selectedAndWeight[j][0] = 1.0;
+                        selected++; 
+                        if (selected == amount.intValue())
+                            break;
+                    }
+                }
+            }
         }
         
         return trees;
     }
     
-    public double normalize(double weight, double[][] selectedAndWeight)
+    public static double normalize(double weight, double[][] selectedAndWeight)
     {
         double normal = 0;
         double sum = 0;
@@ -112,10 +144,22 @@ public class C5TreeBuilder
     
     public static Tree initiateBuild(Node root, Integer amount)
     {
+        C5TreeBuilder.dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
         Object[][] newDataset = new Object[amount][dataset[0].length];
         
-        for (int i = 0; i < amount.intValue(); i++)
-            newDataset[i] = dataset[i];
+        boolean choosen[] = new boolean[dataset.length];
+        int choosenAmount = 0;
+        while (choosenAmount < amount)
+        {
+            Random r = new Random();
+            int index = r.nextInt(dataset.length);
+            if (choosen[index])
+                continue;
+            
+            newDataset[choosenAmount] = dataset[index];
+            choosen[index] = true;
+            choosenAmount++;
+        }
         
         Tree tree = null;
 	tree = new Tree(build(newDataset, root, "kiri"));
@@ -144,7 +188,7 @@ public class C5TreeBuilder
         // calculate entropy total
         int params[] = new int[5];        
 	for (int i = 1; i < table.length; i++)
-	{
+	{            
 	    params[((Double)table[i][table[0].length - 2]).intValue() - 1]++;
 	}
         int defaultClass = -1;
