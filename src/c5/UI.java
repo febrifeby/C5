@@ -17,6 +17,7 @@ import javax.swing.table.TableColumn;
 public class UI extends javax.swing.JFrame {
     Object[][] dataTesting;
     private Tree tree;
+    private Tree[] trees;
     
     /**
      * Creates new form UI
@@ -469,9 +470,25 @@ public class UI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Integer amountOfData = Integer.parseInt(jTextField1.getText());
-        
-        this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
-        jTextArea1.setText(this.tree.toString());
+        if (jCheckBox1.isSelected()) {
+            System.out.println("c5.UI.jButton1ActionPerformed()");
+            Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
+            this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
+            
+            String output = "";
+            
+            for (int i = 0; i < amountOfTrial.intValue(); i++)
+            {
+                output += this.trees[i];
+                output += "\n\n=======================================================================\n\n";
+            }
+            
+            jTextArea1.setText(output);
+        }
+        else {        
+            this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
+            jTextArea1.setText(this.tree.toString());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -485,7 +502,30 @@ public class UI extends javax.swing.JFrame {
         if (totalCase > 22) totalCase = 22;
         for (int i = 0; i < totalCase; i++){
             Double x = ((Double)dataTesting[i][89]);
-            double target = (double)this.tree.test(this.dataTesting[i])-99;
+            double target = 0;
+            
+            if (jCheckBox1.isSelected()){
+                double cstar[] = new double[5];
+                double highest = -1;
+                double highestIdx = -1;
+                for (int j = 0; j < cstar.length; j++)
+                {
+                    for (int t = 0; t < trees.length; t++)
+                    {
+                        if ((double)this.trees[t].test(this.dataTesting[i])-100 == j)
+                            cstar[j] += (1/trees[t].getBeta())*Math.log(1/trees[t].getBeta());
+                    }
+                    
+                    if (highest < cstar[j])
+                    {
+                        highest = cstar[j];
+                        highestIdx = j;
+                    }
+                }
+                target = highestIdx + 1;
+            } else {
+                target = (double)this.tree.test(this.dataTesting[i])-99;
+            }
             if (x.equals(target))
                 correct++;
         }

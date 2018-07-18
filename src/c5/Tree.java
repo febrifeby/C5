@@ -14,6 +14,7 @@ import org.apache.poi.hdgf.pointers.Pointer;
 public class Tree {
     
     private Node head;
+    private double beta = 0;
     
     public Tree() {
     }
@@ -94,5 +95,14 @@ public class Tree {
             }
         }
         return temp;
+    }
+    
+    
+    public double getBeta() {
+        return beta;
+    }
+
+    public void setBeta(double beta) {
+        this.beta = beta;
     }
 }
