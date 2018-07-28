@@ -8,6 +8,7 @@ package c5;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Sheet;
 import javax.swing.table.TableColumn;
 /**
@@ -470,22 +471,33 @@ public class UI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Integer amountOfData = Integer.parseInt(jTextField1.getText());
+        if (amountOfData > 89) {
+            amountOfData = 89;
+        }
         if (jCheckBox1.isSelected()) {
             System.out.println("c5.UI.jButton1ActionPerformed()");
             Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
             this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
-            
+
             String output = "";
-            
-            for (int i = 0; i < amountOfTrial.intValue(); i++)
-            {
-                output += this.trees[i];
-                output += "\n\n=======================================================================\n\n";
+
+            if (trees == null) {
+                JOptionPane.showMessageDialog(null, "Perhatian: Boosting gagal dilakukan karena e > 0.5");
+                return;
+            } else {
+                for (int i = 0; i < amountOfTrial.intValue(); i++) {
+                    if (this.trees[i] != null) {
+                        output += this.trees[i];
+                        output += "\n\n=======================================================================\n\n";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e == 0.5");
+                        return;
+                    }
+                }
             }
-            
+
             jTextArea1.setText(output);
-        }
-        else {        
+        } else {
             this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
             jTextArea1.setText(this.tree.toString());
         }

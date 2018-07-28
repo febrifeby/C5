@@ -8,343 +8,324 @@ package c5;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class C5TreeBuilder 
-{
+public class C5TreeBuilder {
+
     private static Object[][] dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
-    
-    public static Tree[] boosting(int trial, Integer amount)
-    {        
+
+    public static Tree[] boosting(int trial, Integer amount) {
         Tree[] trees = new Tree[trial];
         double selectedAndWeight[][] = new double[dataset.length][2];
-        
+
         int choosen = 0;
-        while (choosen < amount)
-        {
+        while (choosen < amount) {
             Random r = new Random();
             int index = r.nextInt(dataset.length);
-            if (selectedAndWeight[index][0] == 1.0)
+            if (selectedAndWeight[index][0] == 1.0) {
                 continue;
-            
+            }
+
             selectedAndWeight[index][0] = 1.0;
             choosen++;
         }
-        
+
         // assign initial weight
-        for (int i = 0; i < dataset.length; i++)
-        {
-            selectedAndWeight[i][1] = 1.0/dataset.length;
+        for (int i = 0; i < dataset.length; i++) {
+            selectedAndWeight[i][1] = 1.0 / dataset.length;
         }
-        
-        for (int i = 0; i < trial; i++)
-        {   
+
+        for (int i = 0; i < trial; i++) {
             double p[] = new double[selectedAndWeight.length];
-            
+
             // weight normalization
-            for (int j = 0; j < selectedAndWeight.length; j++)
+            for (int j = 0; j < selectedAndWeight.length; j++) {
                 p[j] = normalize(selectedAndWeight[j][1], selectedAndWeight);
-            
+            }
+
             // make a tree add to array trees
             Object[][] datasetBoost = new Object[amount][dataset[0].length];
             int found = 0;
-            for (int j = 0; j < selectedAndWeight.length; j++)
-            {                
-                if (selectedAndWeight[j][0] == 1.0)
-                {
+            for (int j = 0; j < selectedAndWeight.length; j++) {
+                if (selectedAndWeight[j][0] == 1.0) {
                     datasetBoost[found] = dataset[j];
                     found++;
                 }
-                
-                if (found == amount.intValue())
+
+                if (found == amount.intValue()) {
                     break;
+                }
             }
             trees[i] = initiateBuild(datasetBoost);
-            
-            // testing
+
+            // testing error
             boolean testResult[] = new boolean[selectedAndWeight.length];
             double e = 0;
-            for (int j = 0; j < selectedAndWeight.length; j++)
-            {
-//                Double y = ((Double)dataset[j][dataset[0].length - 2]);
-                
-                testResult[j] = 
-                        (trees[i].test(dataset[j]) == ((Double)dataset[j][dataset[0].length - 2]).intValue()+99);
-             
+            for (int j = 0; j < selectedAndWeight.length; j++) {
+                testResult[j]
+                        = (trees[i].test(dataset[j]) == ((Double) dataset[j][dataset[0].length - 2]).intValue() + 99);
+
                 // calculate error rate
-                if (!testResult[j])
-                {
+                if (!testResult[j]) {
                     e += p[j];
                 }
-            }            
-            if (e > 0.5) return null;
-            else if (e == 0.5) return trees;
-            
+            }
+            if (e > 0.5) {
+                return null;
+            } else if (e == 0.5) {
+                return trees;
+            }
+
             // calculate beta
-            double beta = e / (1-e);
-            int selected = 0;      
+            double beta = e / (1 - e);
+            
+            int selected = 0;
             trees[i].setBeta(beta);
             // duplicate selectedAndWeight
             double duplicate[][] = new double[selectedAndWeight.length][2];
-            for (int j = 0; j < selectedAndWeight.length; j++)
-            {
+            for (int j = 0; j < selectedAndWeight.length; j++) {
                 duplicate[j][0] = selectedAndWeight[j][0];
                 duplicate[j][1] = selectedAndWeight[j][1];
             }
-            
+
             // calculate new weight and build new training dataset
-            for (int j = 0; j < selectedAndWeight.length; j++)
-            {
+            for (int j = 0; j < selectedAndWeight.length; j++) {
                 selectedAndWeight[j][0] = 0.0;
-                selectedAndWeight[j][1] = 
-                        (testResult[j])? selectedAndWeight[j][1]*beta: selectedAndWeight[j][1];
-                
+                selectedAndWeight[j][1]
+                        = (testResult[j]) ? selectedAndWeight[j][1] * beta : selectedAndWeight[j][1];
+
                 if (!testResult[j] && selected < amount.intValue()) {
                     selectedAndWeight[j][0] = 1.0;
-                    selected++; 
-                }                
+                    selected++;
+                }
             }
-            
-            if (selected < amount.intValue())
-            {
-                for (int j = 0; j < selectedAndWeight.length; j++)
-                {
-                    if (duplicate[j][0] == 1.0 && selectedAndWeight[j][0] == 0.0)
-                    {
+
+            if (selected < amount.intValue()) {
+                for (int j = 0; j < selectedAndWeight.length; j++) {
+                    if (duplicate[j][0] == 1.0 && selectedAndWeight[j][0] == 0.0) {
                         selectedAndWeight[j][0] = 1.0;
-                        selected++; 
-                        if (selected == amount.intValue())
+                        selected++;
+                        if (selected == amount.intValue()) {
                             break;
+                        }
                     }
                 }
             }
         }
-        
+
         return trees;
     }
-    
-    public static double normalize(double weight, double[][] selectedAndWeight)
-    {
+
+    public static double normalize(double weight, double[][] selectedAndWeight) {
         double normal = 0;
         double sum = 0;
-        
-        for (int i = 0; i < selectedAndWeight.length; i++)
+
+        for (int i = 0; i < selectedAndWeight.length; i++) {
             sum += selectedAndWeight[i][1];
-        
-        normal = weight/sum;
-        
+        }
+
+        normal = weight / sum;
+
         return normal;
     }
-    
-    public static Tree initiateBuild(Object[][] datasetBoost)
-    {
+
+    public static Tree initiateBuild(Object[][] datasetBoost) {
         Tree tree = null;
-	tree = new Tree(build(datasetBoost, new Node(Node.TYPE_CLASSIFIER, 0), "kiri"));
-        
+        tree = new Tree(build(datasetBoost, new Node(Node.TYPE_CLASSIFIER, 0), "kiri"));
+
         return tree;
     }
-    
-    public static Tree initiateBuild(Node root, Integer amount)
-    {
+
+    public static Tree initiateBuild(Node root, Integer amount) {
         C5TreeBuilder.dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
         Object[][] newDataset = new Object[amount][dataset[0].length];
-        
+
         boolean choosen[] = new boolean[dataset.length];
         int choosenAmount = 0;
-        while (choosenAmount < amount)
-        {
+        while (choosenAmount < amount) {
             Random r = new Random();
             int index = r.nextInt(dataset.length);
-            if (choosen[index])
+            if (choosen[index]) {
                 continue;
-            
+            }
+
             newDataset[choosenAmount] = dataset[index];
             choosen[index] = true;
             choosenAmount++;
         }
-        
+
         Tree tree = null;
-	tree = new Tree(build(newDataset, root, "kiri"));
-        
+        tree = new Tree(build(newDataset, root, "kiri"));
+
         return tree;
     }
 
-    private static Node build(Object[][] table, Node parent, String debug){
+    private static Node build(Object[][] table, Node parent, String debug) {
         // if data dalam table memiliki kelas yang sama, maka return node leaf        
         Double classOfFirstData = new Double(0);
-        for (int i = 0; i < table.length; i++)
-        {
-            if (i == 0)
-                classOfFirstData = new Double((Double)table[i][table[0].length - 2]-1);
-            
-            if (table.length > 1 && !classOfFirstData.equals((Double)table[i][table[0].length - 2]))
+        for (int i = 0; i < table.length; i++) {
+            if (i == 0) {
+                classOfFirstData = new Double((Double) table[i][table[0].length - 2] - 1);
+            }
+
+            if (table.length > 1 && !classOfFirstData.equals((Double) table[i][table[0].length - 2])) {
                 break;
-            else if (i == table.length - 1)
-            {
+            } else if (i == table.length - 1) {
                 Node newNode = new Node(Node.TYPE_LEAF, 100 + classOfFirstData.intValue());
                 newNode.setParent(parent.getParent());
                 return newNode;
             }
         }
-        
+
         // calculate entropy total
-        int params[] = new int[5];        
-	for (int i = 1; i < table.length; i++)
-	{            
-	    params[((Double)table[i][table[0].length - 2]).intValue() - 1]++;
-	}
+        int params[] = new int[5];
+        for (int i = 0; i < table.length; i++) {
+            params[((Double) table[i][table[0].length - 2]).intValue() - 1]++;
+        }
         int defaultClass = -1;
         int maxClass = -1;
-        for (int i = 0; i < params.length; i++)
-            if (maxClass < params[i])
-            {
+        for (int i = 0; i < params.length; i++) {
+            if (maxClass < params[i]) {
                 defaultClass = i;
                 maxClass = params[i];
             }
-        
-        if (table.length == 0 || table == null)
-        {
+        }
+
+        if (table.length == 0 || table == null) {
             Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
             newNode.setParent(parent.getParent());
             return newNode;
         }
 
         int tableWidth = table[0].length;
-        
-	double totalEntropy = calculateEntropy(params, table.length);
-        
+
+        double totalEntropy = calculateEntropy(params, table.length);
+
         // calculate entropy per G
         double[][] entropyPerG = new double[tableWidth - 3][2]; // 0 = no, 1 = yes
         double[] entropyPerGGabungan = new double[tableWidth - 3];
         int[][] paramsPerG0 = new int[tableWidth - 3][5]; // kelas 0 - 4
         int[][] paramsPerG1 = new int[tableWidth - 3][5]; // kelas 0 - 4
-        
-        for (int j = 0; j < entropyPerG.length; j++)
-        {
-            if (parent.blackListLabel.contains((Integer)j))
-            {
+
+        for (int j = 0; j < entropyPerG.length; j++) {
+            if (parent.blackListLabel.contains((Integer) j)) {
                 entropyPerGGabungan[j] = 0;
             }
-            
+
             int yes = 0;
             int no = 0;
-            for (int i = 0; i < table.length; i++)
-            {
-                if (((Double)table[i][j + 1]).intValue() == 0) {
-                    paramsPerG0[j][((Double)table[i][tableWidth - 2]).intValue() - 1]++;
+            for (int i = 0; i < table.length; i++) {
+                if (((Double) table[i][j + 1]).intValue() == 0) {
+                    paramsPerG0[j][((Double) table[i][tableWidth - 2]).intValue() - 1]++;
                     no++;
-                }
-                else {
-                    paramsPerG1[j][((Double)table[i][tableWidth - 2]).intValue() - 1]++;
+                } else {
+                    paramsPerG1[j][((Double) table[i][tableWidth - 2]).intValue() - 1]++;
                     yes++;
                 }
             }
             entropyPerG[j][0] = calculateEntropy(paramsPerG0[j], table.length);
-            entropyPerG[j][1] = calculateEntropy(paramsPerG1[j], table.length);   
-            
+            entropyPerG[j][1] = calculateEntropy(paramsPerG1[j], table.length);
+
             // calculate entropy gabungan
-            entropyPerGGabungan[j] = calculateEntropy(new int[]{no, yes}, 
+            entropyPerGGabungan[j] = calculateEntropy(new int[]{no, yes},
                     new double[]{entropyPerG[j][0], entropyPerG[j][1]}, table.length);
         }
-                
+
         // calculate gain and search for highest 
         double gainRatioPerG[] = new double[tableWidth - 3];
         int choosenG = -1;
         double highestGainRatio = -1;
-        
-        for (int i = 0; i < gainRatioPerG.length; i++)
-        {
+
+        for (int i = 0; i < gainRatioPerG.length; i++) {
             gainRatioPerG[i] = calculateGainRatio(totalEntropy, entropyPerGGabungan[i]);
-            if (highestGainRatio <= gainRatioPerG[i]){
+            if (highestGainRatio <= gainRatioPerG[i]) {
                 highestGainRatio = gainRatioPerG[i];
                 choosenG = i;
             }
         }
-        
-        if (parent.blackListLabel.contains((Integer)choosenG) || choosenG == -1)
-        {
+
+        if (parent.blackListLabel.contains((Integer) choosenG) || choosenG == -1) {
             Node newNode = new Node(Node.TYPE_LEAF, defaultClass + 100);
             newNode.setParent(parent.getParent());
             return newNode;
         }
-        
+
         // build new table        
         LinkedList<Object[]> listYes = new LinkedList<>();
         LinkedList<Object[]> listNo = new LinkedList<>();
         Object[][] tableYes = null;
         Object[][] tableNo = null;
-        
-        for (int i = 0; i < table.length; i++)
-        {
-            if (((Double)table[i][choosenG + 1]).intValue() == 1)
+
+        for (int i = 0; i < table.length; i++) {
+            if (((Double) table[i][choosenG + 1]).intValue() == 1) {
                 listYes.add(table[i]);
-            else
+            } else {
                 listNo.add(table[i]);
+            }
         }
-        
+
         tableYes = new Object[listYes.size()][tableWidth];
         tableNo = new Object[listNo.size()][tableWidth];
-        
-        for (int i = 0; i < listYes.size(); i++)
+
+        for (int i = 0; i < listYes.size(); i++) {
             tableYes[i] = listYes.get(i);
-        
-        for (int i = 0; i < listNo.size(); i++)
+        }
+
+        for (int i = 0; i < listNo.size(); i++) {
             tableNo[i] = listNo.get(i);
-        
+        }
+
         parent.setLabel(choosenG);
-        
-	// let the recursive plays its role!!!
+
+        // let the recursive plays its role!!!
         parent.blackListLabel.add(choosenG);
         Node newParent = new Node(Node.TYPE_CLASSIFIER, parent.getLabel());
         newParent.setParent(parent);
-        if (parent.blackListLabel != null)
-            for (Integer i : parent.blackListLabel)
+        if (parent.blackListLabel != null) {
+            for (Integer i : parent.blackListLabel) {
                 newParent.blackListLabel.add(i);
-        
-	if (tableYes != null) parent.setLeft(build(tableYes, newParent, "kiri"));
-	if (tableNo != null) parent.setRight(build(tableNo, newParent.clone(), "kanan"));
-        
-        if (parent.getLeft().getLabel() == parent.getRight().getLabel())
-        {
+            }
+        }
+
+        if (tableYes != null) {
+            parent.setLeft(build(tableYes, newParent, "kiri"));
+        }
+        if (tableNo != null) {
+            parent.setRight(build(tableNo, newParent.clone(), "kanan"));
+        }
+
+        if (parent.getLeft().getLabel() == parent.getRight().getLabel()) {
             parent.setLeft(null);
             parent.setRight(null);
             parent.setLabel(100 + defaultClass);
         }
-        
+
         return parent.clone();
     }
-    
-    private static double calculateEntropy(int[] params, double totalCase)
-    {
+
+    private static double calculateEntropy(int[] params, double totalCase) {
         double sum = 0;
-	for (int i = 0; i < params.length; i++)
-	{
-            if (params[i] != 0)
-                sum += ((params[i]/totalCase) * -1)*Math.log(params[i]/totalCase)/Math.log(2.0);
-	}	
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] != 0) {
+                sum += ((params[i] / totalCase) * -1) * Math.log(params[i] / totalCase) / Math.log(2.0);
+            }
+        }
         return sum;
     }
-    
+
     /*
-    * used to combine entropy among classes
-    */
-    private static double calculateEntropy(int[] params, double[] entropy, double totalCase)
-    {
+     * used to combine entropy among classes
+     */
+    private static double calculateEntropy(int[] params, double[] entropy, double totalCase) {
         double sum = 0;
-        
-        for (int i = 0; i < params.length; i++)
-        {
-            sum += (params[i]/totalCase) * entropy[i];
+
+        for (int i = 0; i < params.length; i++) {
+            sum += (params[i] / totalCase) * entropy[i];
         }
-        
-	return sum;
+
+        return sum;
     }
-    
-    private static double calculateGainRatio(double totalEntropy, double attributeEntropy)
-    {
-	return (totalEntropy - attributeEntropy);
+
+    private static double calculateGainRatio(double totalEntropy, double attributeEntropy) {
+        return (totalEntropy - attributeEntropy);
     }
-    
+
 }
-
-
-
-
