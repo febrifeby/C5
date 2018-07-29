@@ -54,6 +54,7 @@ public class C5TreeBuilder {
                     break;
                 }
             }
+
             trees[i] = initiateBuild(datasetBoost);
 
             // testing error
@@ -68,9 +69,7 @@ public class C5TreeBuilder {
                     e += p[j];
                 }
             }
-            if (e > 0.5) {
-                return null;
-            } else if (e == 0.5) {
+            if (e >= 0.5) {
                 return trees;
             }
 

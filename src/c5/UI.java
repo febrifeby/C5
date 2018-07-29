@@ -481,18 +481,13 @@ public class UI extends javax.swing.JFrame {
 
             String output = "";
 
-            if (trees == null) {
-                JOptionPane.showMessageDialog(null, "Perhatian: Boosting gagal dilakukan karena e > 0.5");
-                return;
-            } else {
-                for (int i = 0; i < amountOfTrial.intValue(); i++) {
-                    if (this.trees[i] != null) {
-                        output += this.trees[i];
-                        output += "\n\n=======================================================================\n\n";
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e == 0.5");
-                        return;
-                    }
+            for (int i = 0; i < amountOfTrial.intValue(); i++) {
+                if (this.trees[i] != null) {
+                    output += this.trees[i];
+                    output += "\n\n=======================================================================\n\n";
+                } else {
+                    JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
+                    break;
                 }
             }
 
@@ -524,7 +519,7 @@ public class UI extends javax.swing.JFrame {
                 {
                     for (int t = 0; t < trees.length; t++)
                     {
-                        if ((double)this.trees[t].test(this.dataTesting[i])-100 == j)
+                        if (this.trees[t] != null && (double)this.trees[t].test(this.dataTesting[i])-100 == j)
                             cstar[j] += (1/trees[t].getBeta())*Math.log(1/trees[t].getBeta());
                     }
                     
