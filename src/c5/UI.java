@@ -1159,6 +1159,7 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // memperbaharui tabel training dan testing
         jTable6.removeAll();
         jTable7.removeAll();
         jTable6.setModel(new javax.swing.table.DefaultTableModel(test(), test2()));
@@ -1227,36 +1228,51 @@ public class UI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Integer amountOfData = Integer.parseInt(jTextField1.getText());
-        if (amountOfData > 89) {
-            amountOfData = 89;
-        }
-        if (jCheckBox1.isSelected()) {
-            Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
-            this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
-
-            String output = "";
-
-            for (int i = 0; i < amountOfTrial.intValue(); i++) {
-                if (this.trees[i] != null) {
-                    output += this.trees[i];
-                    output += "\n\n=======================================================================\n\n";
-                } else {
-                    JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
-                    break;
-                }
+        // pengerjaan (pembuatan tree dan testing) jika menggunakan cross validation
+        if(jRadioButton2.isSelected()){
+            for (int i = 0; i < Integer.parseInt(jTextField3.getText()); i++){
+                
             }
+        }
+        // pembuatan tree dan testing jika tanpa cv
+        else if (jRadioButton1.isSelected())
+        {
+            Integer amountOfData = Integer.parseInt(jTextField1.getText());
+            if (amountOfData > 89) {
+                amountOfData = 89;
+            }
+            // kalau boosting dicentang
+            if (jCheckBox1.isSelected()) {
+                Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
+                this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
 
-            jTextArea1.setText(output);
-        } else {
-            this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
-            jTextArea1.setText(this.tree.toString());
+                String output = "";
+                
+                // pencetakan tree
+                for (int i = 0; i < amountOfTrial.intValue(); i++) {
+                    if (this.trees[i] != null) {
+                        output += this.trees[i];
+                        output += "\n\n=======================================================================\n\n";
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
+                        break;
+                    }
+                }
+
+                jTextArea1.setText(output);
+            }
+            // kalau boosting gak dicentang
+            else {
+                this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
+                jTextArea1.setText(this.tree.toString());
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public Object[][] test (){
         Object[][] x = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
         
+        // tampilan menampilkan table jika tidak menggunakan cross validation
         if (jRadioButton1.isSelected())
         {
             Object y[][] = new Object[Integer.parseInt(jTextField1.getText())][90];
@@ -1266,6 +1282,7 @@ public class UI extends javax.swing.JFrame {
             }
             return y;
         }
+        // tampilan menampilkan table jika menggunakan cross validation
         else if (jRadioButton2.isSelected())
         {
             Object y[][] = new Object[1][90];
@@ -1282,6 +1299,7 @@ public class UI extends javax.swing.JFrame {
     public Object[][] testing (){        
         this.dataTesting = DatabaseReader.getTable(DatabaseReader.TESTING_FILE_NAME);
         
+        // tampilan menampilkan table jika menggunakan cross validation
         if (jRadioButton2.isSelected())
         {
             Object[][] y = new Object[1][90];
