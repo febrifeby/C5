@@ -19,6 +19,7 @@ public class DatabaseReader
 {
     public static final String TRAINING_FILE_NAME = "C:\\Users\\feby\\Desktop\\C5\\src\\c5\\DATASET.xlsx";
     public static final String TESTING_FILE_NAME = "C:\\Users\\feby\\Desktop\\C5\\src\\c5\\Data Testing.xlsx";
+    public static final String DATA_FILE_NAME = "C:\\Users\\feby\\Desktop\\C5\\src\\c5\\DATA.xlsx";
     private static LinkedList<LinkedList<Object>> temp = new LinkedList<LinkedList<Object>>();
     
     public static Object[] getTableHeader() {

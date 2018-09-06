@@ -9,14 +9,17 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import org.apache.poi.ss.usermodel.Sheet;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 /**
  *
  * @author feby
  */
 public class UI extends javax.swing.JFrame {
     Object[][] dataTesting;
+    Object[][] dataAll;
     private Tree tree;
     private Tree[] trees;
     
@@ -35,21 +38,21 @@ public class UI extends javax.swing.JFrame {
         jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         
-        for (int i = 0; i < 90; i++){
+        for (int i = 0; i < 89; i++){
             column = jTable5.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
-            column = jTable6.getColumnModel().getColumn(i); 
-            column.setPreferredWidth(50);
-            column = jTable7.getColumnModel().getColumn(i); 
-            column.setPreferredWidth(50);
+//            column = jTable6.getColumnModel().getColumn(i); 
+//            column.setPreferredWidth(50);
+//            column = jTable7.getColumnModel().getColumn(i); 
+//            column.setPreferredWidth(50);
         }
         
-        column = jTable5.getColumnModel().getColumn(90); 
+        column = jTable5.getColumnModel().getColumn(89); 
         column.setPreferredWidth(130);
-        column = jTable6.getColumnModel().getColumn(90); 
-        column.setPreferredWidth(130);
-        column = jTable7.getColumnModel().getColumn(90); 
-        column.setPreferredWidth(130);
+//        column = jTable6.getColumnModel().getColumn(89); 
+//        column.setPreferredWidth(130);
+//        column = jTable7.getColumnModel().getColumn(89); 
+//        column.setPreferredWidth(130);
     }
 
 
@@ -240,47 +243,17 @@ public class UI extends javax.swing.JFrame {
 
         jTabbedPane2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(all(), all2()));
         jScrollPane7.setViewportView(jTable5);
 
         jTabbedPane2.addTab("Data", jScrollPane7);
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(test(), test2()));
         jScrollPane8.setViewportView(jTable6);
 
         jTabbedPane2.addTab("Data Latih", jScrollPane8);
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(testing(), testing2()));
         jScrollPane9.setViewportView(jTable7);
 
         jTabbedPane2.addTab("Data Uji", jScrollPane9);
@@ -311,6 +284,7 @@ public class UI extends javax.swing.JFrame {
 
         jLabel2.setText("folds");
 
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Jumlah Data Latih");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,13 +331,13 @@ public class UI extends javax.swing.JFrame {
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(1, 1, 1))
+                .addGap(9, 9, 9))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +346,7 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Data", jLayeredPane1);
@@ -388,6 +362,11 @@ public class UI extends javax.swing.JFrame {
         jCheckBox1.setText("Boosting");
 
         jButton2.setText("Perhitungan");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +420,7 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,7 +509,7 @@ public class UI extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(jTextField4)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -1095,7 +1074,7 @@ public class UI extends javax.swing.JFrame {
         jLayeredPane3Layout.setHorizontalGroup(
             jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1107,11 +1086,11 @@ public class UI extends javax.swing.JFrame {
             .addGroup(jLayeredPane3Layout.createSequentialGroup()
                 .addGroup(jLayeredPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane3Layout.createSequentialGroup()
-                        .addContainerGap(295, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -1141,7 +1120,7 @@ public class UI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1156,7 +1135,8 @@ public class UI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, Short.MAX_VALUE)
+                .addGap(42, 42, 42))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Data");
@@ -1179,32 +1159,10 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Integer amountOfData = Integer.parseInt(jTextField1.getText());
-        if (amountOfData > 89) {
-            amountOfData = 89;
-        }
-        if (jCheckBox1.isSelected()) {
-            Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
-            this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
-
-            String output = "";
-
-            for (int i = 0; i < amountOfTrial.intValue(); i++) {
-                if (this.trees[i] != null) {
-                    output += this.trees[i];
-                    output += "\n\n=======================================================================\n\n";
-                } else {
-                    JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
-                    break;
-                }
-            }
-
-            jTextArea1.setText(output);
-        } else {
-            this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
-            jTextArea1.setText(this.tree.toString());
-        }
+        jTable6.removeAll();
+        jTable7.removeAll();
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(test(), test2()));
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(testing(), testing2()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1267,16 +1225,69 @@ public class UI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Integer amountOfData = Integer.parseInt(jTextField1.getText());
+        if (amountOfData > 89) {
+            amountOfData = 89;
+        }
+        if (jCheckBox1.isSelected()) {
+            Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
+            this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
+
+            String output = "";
+
+            for (int i = 0; i < amountOfTrial.intValue(); i++) {
+                if (this.trees[i] != null) {
+                    output += this.trees[i];
+                    output += "\n\n=======================================================================\n\n";
+                } else {
+                    JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
+                    break;
+                }
+            }
+
+            jTextArea1.setText(output);
+        } else {
+            this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
+            jTextArea1.setText(this.tree.toString());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public Object[][] test (){
-        return DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
+        Object[][] x = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
+        
+        if (jRadioButton1.isSelected())
+        {
+            Object y[][] = new Object[Integer.parseInt(jTextField1.getText())][90];
+            for (int i = 0; i < y.length; i++)
+            {
+                y[i] = x[i];
+            }
+            return y;
+        }
+        else if (jRadioButton2.isSelected())
+        {
+            Object y[][] = new Object[1][90];
+            return y;
+        }
+        
+        return x;
     }
     
     public Object[] test2 (){
         return DatabaseReader.getTableHeader();
     }
     
-    public Object[][] testing (){
+    public Object[][] testing (){        
         this.dataTesting = DatabaseReader.getTable(DatabaseReader.TESTING_FILE_NAME);
+        
+        if (jRadioButton2.isSelected())
+        {
+            Object[][] y = new Object[1][90];
+            return y;
+        }
+        
         return this.dataTesting;
     }
     
@@ -1285,8 +1296,8 @@ public class UI extends javax.swing.JFrame {
     }
     
     public Object[][] all (){
-        this.dataTesting = DatabaseReader.getTable(DatabaseReader.TESTING_FILE_NAME);
-        return this.dataTesting;
+        this.dataAll = DatabaseReader.getTable(DatabaseReader.DATA_FILE_NAME);
+        return this.dataAll;
     }
     
     public Object[] all2 (){
