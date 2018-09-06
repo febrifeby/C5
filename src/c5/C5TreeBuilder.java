@@ -125,14 +125,14 @@ public class C5TreeBuilder {
 
         return normal;
     }
-
+//membentuk tree untuk boosting
     public static Tree initiateBuild(Object[][] datasetBoost) {
         Tree tree = null;
         tree = new Tree(build(datasetBoost, new Node(Node.TYPE_CLASSIFIER, 0), "kiri"));
 
         return tree;
     }
-
+//membentuk tree untuk yang biasa
     public static Tree initiateBuild(Node root, Integer amount) {
         C5TreeBuilder.dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
         Object[][] newDataset = new Object[amount][dataset[0].length];

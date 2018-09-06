@@ -31,19 +31,24 @@ public class UI extends javax.swing.JFrame {
     
     public void lebarKolom(){ 
         TableColumn column;
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
-        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable5.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
+        jTable6.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable7.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         
         for (int i = 0; i < 90; i++){
-            column = jTable1.getColumnModel().getColumn(i); 
+            column = jTable5.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
-            column = jTable2.getColumnModel().getColumn(i); 
+            column = jTable6.getColumnModel().getColumn(i); 
+            column.setPreferredWidth(50);
+            column = jTable7.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
         }
         
-        column = jTable1.getColumnModel().getColumn(90); 
+        column = jTable5.getColumnModel().getColumn(90); 
         column.setPreferredWidth(130);
-        column = jTable2.getColumnModel().getColumn(90); 
+        column = jTable6.getColumnModel().getColumn(90); 
+        column.setPreferredWidth(130);
+        column = jTable7.getColumnModel().getColumn(90); 
         column.setPreferredWidth(130);
     }
 
@@ -80,7 +85,7 @@ public class UI extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jLayeredPane2 = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
@@ -374,8 +379,9 @@ public class UI extends javax.swing.JFrame {
 
         jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tree", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 3, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(testing(), testing2()));
-        jScrollPane3.setViewportView(jTable2);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
 
         jLabel3.setText("trial");
 
@@ -1179,7 +1185,6 @@ public class UI extends javax.swing.JFrame {
             amountOfData = 89;
         }
         if (jCheckBox1.isSelected()) {
-            System.out.println("c5.UI.jButton1ActionPerformed()");
             Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
             this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
 
@@ -1278,6 +1283,16 @@ public class UI extends javax.swing.JFrame {
     public Object[] testing2 (){
         return DatabaseReader.getTableHeader();
     }
+    
+    public Object[][] all (){
+        this.dataTesting = DatabaseReader.getTable(DatabaseReader.TESTING_FILE_NAME);
+        return this.dataTesting;
+    }
+    
+    public Object[] all2 (){
+        return DatabaseReader.getTableHeader();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1449,10 +1464,10 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
