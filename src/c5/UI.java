@@ -7,6 +7,7 @@ package c5;
 
 import java.awt.Color;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -41,18 +42,18 @@ public class UI extends javax.swing.JFrame {
         for (int i = 0; i < 89; i++){
             column = jTable5.getColumnModel().getColumn(i); 
             column.setPreferredWidth(50);
-//            column = jTable6.getColumnModel().getColumn(i); 
-//            column.setPreferredWidth(50);
-//            column = jTable7.getColumnModel().getColumn(i); 
-//            column.setPreferredWidth(50);
+            column = jTable6.getColumnModel().getColumn(i); 
+            column.setPreferredWidth(50);
+            column = jTable7.getColumnModel().getColumn(i); 
+            column.setPreferredWidth(50);
         }
         
         column = jTable5.getColumnModel().getColumn(89); 
         column.setPreferredWidth(130);
-//        column = jTable6.getColumnModel().getColumn(89); 
-//        column.setPreferredWidth(130);
-//        column = jTable7.getColumnModel().getColumn(89); 
-//        column.setPreferredWidth(130);
+        column = jTable6.getColumnModel().getColumn(89); 
+        column.setPreferredWidth(130);
+        column = jTable7.getColumnModel().getColumn(89); 
+        column.setPreferredWidth(130);
     }
 
 
@@ -68,7 +69,6 @@ public class UI extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jTextField5 = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -94,17 +94,8 @@ public class UI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jLayeredPane3 = new javax.swing.JLayeredPane();
         jButton4 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -376,77 +367,19 @@ public class UI extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hasil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 3, 11), new java.awt.Color(51, 51, 255))); // NOI18N
 
-        jLabel5.setText("Jumlah Benar:");
-
-        jLabel6.setText("Jumlah Salah:");
-
-        jLabel7.setText("Akurasi:");
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Fold 1");
-
-        jLabel4.setText("Jumlah Data Latih:");
-
-        jLabel11.setText("      ");
-
-        jLabel13.setText("Jumlah Data Uji:");
-
-        jLabel14.setText("      ");
-
-        jLabel15.setText("     ");
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7))
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel15))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
 
         jLayeredPane2.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1228,23 +1161,73 @@ public class UI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        Integer amountOfData = 89;
         // pengerjaan (pembuatan tree dan testing) jika menggunakan cross validation
         if(jRadioButton2.isSelected()){
-            for (int i = 0; i < Integer.parseInt(jTextField3.getText()); i++){
-                
+            jTextArea1.setText("");
+            int folds = Integer.parseInt(jTextField3.getText());
+            int divider = 111 / folds;            
+            Object[][][] divided = new Object[folds][divider][91];
+
+            for (int a = 0; a < folds; a++){
+                for (int j = 0; j < divider; j++)
+                {
+                    divided[a][j] = ((divider * a + j)>=dataAll.length) ? null : dataAll[divider * a + j];
+                }
             }
+            for (int a = 0; a < folds; a++){
+                LinkedList<Object[]> foldsTrainingList = new LinkedList();
+                for (int b = 0; b < folds; b++) {
+                    if (b == a) continue;
+                    for (int c = 0; c < divider; c++) 
+                        if (divided[b][c] != null)
+                            foldsTrainingList.add(divided[b][c]);
+                }
+                
+                Object[][] foldsTraining = new Object[foldsTrainingList.size()][91];
+                
+                for (int b = 0; b < foldsTrainingList.size(); b++)
+                    foldsTraining[b] = foldsTrainingList.get(b);
+                
+                // kalau boosting dicentang
+                if (jCheckBox1.isSelected()) {
+                    Integer amountOfTrial = Integer.parseInt(jTextField2.getText());
+                     this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), 20, foldsTraining);
+
+                    String output = jTextArea1.getText();
+                    output += "================================ Fold #" + (a + 1)+ "\n";
+                    // pencetakan tree
+                    for (int i = 0; i < amountOfTrial.intValue(); i++) {
+                        if (this.trees[i] != null) {
+                            output += this.trees[i];
+                            output += "\n\n=======================================================================\n\n";
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Perhatian: Trial tidak sebanyak " + amountOfTrial + " karena ditemukan e >= 0.5");
+                            break;
+                        }
+                    }
+
+                    jTextArea1.setText(output);
+                }
+                // kalau boosting gak dicentang
+                else {
+                    this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
+                    
+                    String output = jTextArea1.getText();
+                    output += "================================ Fold #" + (a + 1)+ "\n";
+                    
+                    jTextArea1.setText(output + this.tree.toString());
+                }
+            }
+            
         }
         // pembuatan tree dan testing jika tanpa cv
         else if (jRadioButton1.isSelected())
         {
-            Integer amountOfData = Integer.parseInt(jTextField1.getText());
-            if (amountOfData > 89) {
-                amountOfData = 89;
-            }
             // kalau boosting dicentang
             if (jCheckBox1.isSelected()) {
-                Integer amountOfTrial = Integer.parseInt(jTextField3.getText());
-                this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData);
+                Integer amountOfTrial = Integer.parseInt(jTextField2.getText());
+                this.trees = C5TreeBuilder.boosting(amountOfTrial.intValue(), amountOfData, null);
 
                 String output = "";
                 
@@ -1266,9 +1249,53 @@ public class UI extends javax.swing.JFrame {
                 this.tree = C5TreeBuilder.initiateBuild(new Node(Node.TYPE_CLASSIFIER, 0), amountOfData);
                 jTextArea1.setText(this.tree.toString());
             }
+            
+            testTree();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void testTree()
+    {
+        int correct = 0;
+        int totalCase = Integer.parseInt(jTextField2.getText());
+        if (totalCase > 22) totalCase = 22;
+        for (int i = 0; i < totalCase; i++){
+            Double x = ((Double)dataTesting[i][89]);
+            double target = 0;
+            
+            if (jCheckBox1.isSelected()){
+                double cstar[] = new double[5];
+                double highest = -1;
+                double highestIdx = -1;
+                for (int j = 0; j < cstar.length; j++)
+                {
+                    for (int t = 0; t < trees.length; t++)
+                    {
+                        if ((double)this.trees[t].test(this.dataTesting[i])-100 == j)
+                            cstar[j] += (1/trees[t].getBeta())*Math.log(1/trees[t].getBeta());
+                    }
+                    
+                    if (highest < cstar[j])
+                    {
+                        highest = cstar[j];
+                        highestIdx = j;
+                    }
+                }
+                target = highestIdx + 1;
+            } else {
+                target = (double)this.tree.test(this.dataTesting[i])-99;
+            }
+            if (x.equals(target))
+                correct++;
+        }
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        
+        jTextArea2.setText("" + correct);
+        jTextArea2.setText((totalCase - correct) + "");
+        jTextArea2.setText(df.format((double)correct/totalCase*100) + "%");
+    }
+    
     public Object[][] test (){
         Object[][] x = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
         
@@ -1285,7 +1312,7 @@ public class UI extends javax.swing.JFrame {
         // tampilan menampilkan table jika menggunakan cross validation
         else if (jRadioButton2.isSelected())
         {
-            Object y[][] = new Object[1][90];
+            Object y[][] = new Object[1][91];
             return y;
         }
         
@@ -1302,7 +1329,7 @@ public class UI extends javax.swing.JFrame {
         // tampilan menampilkan table jika menggunakan cross validation
         if (jRadioButton2.isSelected())
         {
-            Object[][] y = new Object[1][90];
+            Object[][] y = new Object[1][91];
             return y;
         }
         
@@ -1358,7 +1385,6 @@ public class UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -1451,13 +1477,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox88;
     private javax.swing.JCheckBox jCheckBox89;
     private javax.swing.JCheckBox jCheckBox9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1469,11 +1489,6 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
@@ -1487,6 +1502,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
@@ -1497,6 +1513,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

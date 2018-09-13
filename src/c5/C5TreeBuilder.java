@@ -12,7 +12,8 @@ public class C5TreeBuilder {
 
     private static Object[][] dataset = DatabaseReader.getTable(DatabaseReader.TRAINING_FILE_NAME);
 
-    public static Tree[] boosting(int trial, Integer amount) {
+    public static Tree[] boosting(int trial, Integer amount, Object[][] dataset) {        
+        if (dataset == null) dataset = C5TreeBuilder.dataset;
         Tree[] trees = new Tree[trial];
         double selectedAndWeight[][] = new double[dataset.length][2];
 
